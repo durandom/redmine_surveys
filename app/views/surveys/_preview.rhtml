@@ -1,0 +1,29 @@
+<fieldset class="preview"><legend><%= l(:label_preview) %></legend>
+
+<h2><%= @survey.subject %></h2>
+<div class="wiki">
+<%= textilizable(@survey.content) %>
+</div>
+
+<% form_for :response, @survey, :url => { } do |f| %>
+<table style="border:0">
+<% @answers.each do |answer| %>
+  <tr><td align=left width=20 style="border:0;">
+  <%= @survey.multiple_choice ? 
+    (check_box_tag 'response[]', answer.id, answer.responses.exists?(:user_id => User.current.id)) : 
+    (radio_button_tag 'response', answer.id, answer.responses.exists?(:user_id => User.current.id)) %>
+  </td><td align=lef style="border:0;"t>
+  <%= textilizable(answer.content) %>
+  </td></tr>
+<% end %>
+
+<% if @survey.allow_comment %>
+<tr><td colspan=2 style="border:0;><%= textilizable(@survey.comment_hint) %></td></tr>
+<tr><td colspan=2 style="border:0"><%= text_area_tag :comment, nil, :rows => 4, :cols => 120, :style => 'width:100%'  %></td></tr>
+<% end %>
+
+</table>
+
+<% end %>
+
+</fieldset>

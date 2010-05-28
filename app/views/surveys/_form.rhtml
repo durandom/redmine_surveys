@@ -1,0 +1,53 @@
+<script type="text/javascript">
+var answerFieldCount = 1;
+function addAnswerField() {
+    answerFieldCount++;    
+    var f = "<div><textarea id=honk style='width:90%' name=answers[" + answerFieldCount + "][content] cols=120 rows=2></textarea>";
+    f = f + "<small><a href=# onClick='var e = $(this); e.up().up().remove(); return false;'>remove</a></small></div>";
+    
+    $('answers').insert(f);
+}
+</script>
+
+<%= error_messages_for 'survey' %>
+
+<div class="box">
+<!--[form:message]-->
+<p><label><%= l(:field_subject) %></label><br />
+<%= f.text_field :subject, :size => 120 %><br />
+
+<label><%= f.check_box :allow_edit %> Allow Edit</label>
+<label><%= f.check_box :allow_comment %> Allow Comments</label> 
+<label><%= f.check_box :multiple_choice %> Multiple Choice</label> 
+<label><%= f.date_select :valid_until %> Valid until</label>
+<br />
+</p>
+
+<p><%= f.text_area :content, :cols => 80, :rows => 15, :class => 'wiki-edit', :id => 'survey_content' %></p>
+
+<%= wikitoolbar_for 'survey_content' %>
+<!--[eoform:message]-->
+
+<span id="comment_hint">
+<em>Comment hint</em><br/>
+<p><%= f.text_area :comment_hint, :cols => 80, :rows => 4, :class => 'wiki-edit', :id => 'survey_comment_hint' %></p>
+</span>
+
+<span id="answers">
+<em>Answers</em><br/>
+<% f.object.answers.each do |a| %>
+<div>
+     <%= text_area_tag "existing_answers[#{a.id}][content]", a.content, :cols => 120, :rows => 2, :id => nil, :style => 'width:90%' %>
+</div>
+<% end %>
+<% if f.object.answers.count == 0 %>
+<div>
+<%= text_area_tag "answers[1][content]", '', :rows => 2, :id => nil,  :style => 'width:90%' %>
+</div>
+<% end %>
+</span>
+<small><%= link_to "Add another answer", '#', :onclick => 'addAnswerField(); return false;' %>
+</small>
+
+
+</div>

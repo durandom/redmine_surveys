@@ -1,0 +1,15 @@
+<% form_for :survey, @survey, :url => {:controller => 'surveys', :action => 'create', :project_id => @project}, :html => {:id => 'survey-form'} do |f| %>
+     <%= render :partial => 'surveys/form', :locals => {:f => f} %>
+    <p><%= submit_tag l(:button_create) %>
+    
+<%= link_to_remote l(:label_preview), 
+  { :url => { :controller => 'surveys', :action => 'preview' },
+    :method => 'post',
+    :update => 'preview',
+    :with => "Form.serialize('survey-form')",
+    :complete => "Element.scrollTo('preview')"
+  }, :accesskey => accesskey(:preview) %> |
+<%= link_to l(:button_cancel), "#", :onclick => 'Element.hide("add-survey")' %></p>
+  <% end %>
+<div id="preview" class="wiki"></div>
+ 

@@ -1,0 +1,32 @@
+<table width=100%>
+<% survey.answers.each do |answer|
+   answer_percent = (survey.responders.length > 0) ? (answer.responses.length.to_f / survey.responders.length.to_f * 100) : 0 
+%>
+  <tr>
+  <td style="width: 50%">
+     <%= textilizable(answer.content) %>
+  </td>
+  <td>
+    <div style='background-color: red; color: white; width:<%= answer_percent %>%; text-align: right; padding-right: 10px;'> <%= answer.responses.count %> </div>
+  </td>
+  <td style="width: 10%; text-align: right">
+     <%= format("%.2f",answer_percent) %> %     
+  </td>
+</tr>
+<% end %>
+<tr><td></td><td>Total Responses <%= survey.responders.length %></td><td></td></tr>
+</table>
+
+<% if survey.response_comments.count > 0 %>
+<hr/>
+<a onClick='Element.toggle("<%=dom_id(survey, :comments)%>"); return false;' href="#">Click to view comments.</a>
+<div id=<%=dom_id(survey, :comments)%> style='display:none;'>
+<% survey.response_comments.each do |r| %>
+  <div class=box>
+   Comment from <%= link_to_user(r.user) %>
+   <hr/> 
+   <%= textilizable(r.content) %>
+  </div>
+<% end %>
+</div>
+<% end %>

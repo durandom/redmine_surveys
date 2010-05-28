@@ -1,0 +1,15 @@
+<div class="contextual">
+<%= link_to_if_authorized 'new survey',
+                          {:controller => 'surveys', :action => 'new', :project_id => @project},
+                           :class => 'icon icon-add' %>
+</div>
+
+<h2>Surveys</h2>
+
+<%= render :partial => 'survey', :collection => @surveys %>
+
+<h2>
+Thank you for completing the Survey Questionnaire.<br>
+Before logging out, please make sure that you pressed the Save button after answering each question.<br>
+<%= link_to l(:label_logout), '/logout' %>
+</h2>
