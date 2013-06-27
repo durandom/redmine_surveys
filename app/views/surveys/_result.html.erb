@@ -19,7 +19,7 @@
 
 <% if survey.response_comments.count > 0 %>
 <hr/>
-<a onClick='Element.toggle("<%=dom_id(survey, :comments)%>"); return false;' href="#">Click to view comments.</a>
+<a onclick='jQuery("#<%=dom_id(survey, :comments)%>").toggle(); return false;' href="#">Click to view comments.</a>
 <div id=<%=dom_id(survey, :comments)%> style='display:none;'>
 <% survey.response_comments.each do |r| %>
   <div class=box>

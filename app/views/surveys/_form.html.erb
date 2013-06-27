@@ -3,9 +3,8 @@ var answerFieldCount = 1;
 function addAnswerField() {
     answerFieldCount++;    
     var f = "<div><textarea id=honk style='width:90%' name=answers[" + answerFieldCount + "][content] cols=120 rows=2></textarea>";
-    f = f + "<small><a href=# onClick='var e = $(this); e.up().up().remove(); return false;'>remove</a></small></div>";
-    
-    $('answers').insert(f);
+    f = f + "<small><a href=# onClick='var e = jQuery(this); e.up().up().remove(); return false;'>remove</a></small></div>";
+    jQuery('#answers').append(f);
 }
 </script>
 

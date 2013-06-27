@@ -4,15 +4,15 @@ class Survey < ActiveRecord::Base
   has_many :answers, :dependent => :destroy, :order => 'id asc'
   has_many :response_comments
   has_many :responses, :through => :answers
-  has_many :responders, :class_name => 'User', :finder_sql => 
-'select users.* ' +
-'from users ' +
-'left join responses on responses.user_id = users.id ' +
-'left join answers on responses.answer_id = answers.id ' +
-'left join surveys on answers.survey_id = surveys.id ' +
-'left join response_comments on response_comments.user_id = users.id ' +
-'where surveys.id = #{id} ' +
-'group by users.id' 
+  has_many :responders, :class_name => 'User', :finder_sql => proc {
+"select users.* " +
+"from users " +
+"left join responses on responses.user_id = users.id " +
+"left join answers on responses.answer_id = answers.id " +
+"left join surveys on answers.survey_id = surveys.id " +
+"left join response_comments on response_comments.user_id = users.id " +
+"where surveys.id = #{self.id} " +
+"group by users.id" }
   
   # alternative to responders:
   #User.find(Response.count(:conditions => {:answer_id => Survey.all.first.answer_ids}, :group => :user_id).keys)

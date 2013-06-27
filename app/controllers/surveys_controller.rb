@@ -49,10 +49,11 @@ class SurveysController < ApplicationController
   end
   
   def download
+    require 'csv'
     user_fields = ['login', 'lastname', 'firstname', 'mail']
     # hash of { custom_field_id => name }
     user_custom_fields = Hash[ User.current.available_custom_fields.collect {|f| [f.id, f.name] } ]      
-    csv_string = FasterCSV.generate(:col_sep => ";", :row_sep => "\r\n") do |csv|
+    csv_string = CSV.generate(:col_sep => ";", :row_sep => "\r\n") do |csv|
       # add a header line
       header = []
       @survey.answers.each do |answer|
