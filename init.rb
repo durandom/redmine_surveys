@@ -1,6 +1,5 @@
 require 'redmine'
 
-config.gem "fastercsv", :version => "~>1.5.0"
 
 Redmine::Plugin.register :redmine_surveys do
   name 'Redmine Surveys plugin'
