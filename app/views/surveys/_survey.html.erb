@@ -8,7 +8,7 @@
     <%= link_to_if_authorized(l(:button_edit), {:action => 'edit', :id => survey}, :class => 'icon icon-edit')  %>
     <%= link_to_if_authorized(l(:button_delete), {:action => 'destroy', :id => survey}, :method => :post, :confirm => "Are you sure to delete this Survey?\nThis cannot be undone!", :class => 'icon icon-del') %>
     <%= link_to_if(view_results, 'Results', '#', :class => 'icon icon-comment',  
-      :onclick => "Element.toggle('#{dom_id(survey, :results)}'); Element.toggle('#{dom_id(survey)}'); return false;") {} %>    
+      :onclick => "jQuery('##{dom_id(survey, :results)}').toggle(); jQuery('##{dom_id(survey)}').toggle(); return false;") {} %>    
     <%= link_to_if_authorized('Download', {:action => 'download', :id => survey},  :class => 'icon icon-file text-plain') %>    
 </div>
 
@@ -27,7 +27,7 @@
 <% end %>
 
 <div id="<%=dom_id(survey)%>" style="display:block;">
-<% form_for :response, survey, :url => {:controller => 'surveys', :action => 'respond', :id => survey } do |f| %>
+<%= form_for survey, :as => 'response', :url => {:controller => 'surveys', :action => 'respond', :id => survey } do |f| %>
     <table width=90%>
     <% survey.answers.each do |answer| %>
       <tr><td style='text-align:left; width:3%'>
@@ -46,7 +46,7 @@
     <p>
     <% unless disabled %>        
        <%= submit_tag responded ? 'Save again' : 'Save'%>
-       <span style="color: red;"><%= responded ? ' You can change your answer. But after changes press the button again.' : ' Please save your answer by pressing &lt;Save&gt;.' %></span>
+       <span style="color: red;"><%= responded ? ' You can change your answer. But after changes press the button again.' : ' Please save your answer by pressing "Save".' %></span>
     <% end %>
     </div>
         

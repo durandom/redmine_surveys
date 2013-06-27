@@ -5,7 +5,7 @@
 <%= textilizable(@survey.content) %>
 </div>
 
-<% form_for :response, @survey, :url => { } do |f| %>
+<%= form_for @survey, :as => 'response', :url => { } do |f| %>
 <table style="border:0">
 <% @answers.each do |answer| %>
   <tr><td align=left width=20 style="border:0;">
@@ -18,8 +18,8 @@
 <% end %>
 
 <% if @survey.allow_comment %>
-<tr><td colspan=2 style="border:0;><%= textilizable(@survey.comment_hint) %></td></tr>
-<tr><td colspan=2 style="border:0"><%= text_area_tag :comment, nil, :rows => 4, :cols => 120, :style => 'width:100%'  %></td></tr>
+<tr><td colspan=2 style="border:0;"><%= textilizable(@survey.comment_hint) %></td></tr>
+<tr><td colspan=2 style="border:0;"><%= text_area_tag :comment, nil, :rows => 4, :cols => 120, :style => 'width:100%'  %></td></tr>
 <% end %>
 
 </table>

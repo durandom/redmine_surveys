@@ -1,13 +1,14 @@
 <% if authorize_for('surveys', 'edit') %>
-  <% form_for :survey, @survey, :url => {:controller => 'surveys', :action => 'update', :project_id => @project, :id => @survey}, :html => {:id => 'survey-form'} do |f| %>
+  <%= form_for @survey, :url => {:controller => 'surveys', :action => 'update', :project_id => @project, :id => @survey}, :html => {:id => 'survey-form'} do |f| %>
      <%= render :partial => 'surveys/form', :locals => {:f => f} %>
     <p><%= submit_tag l(:button_change) %>
-<%= link_to_remote l(:label_preview), 
-  { :url => { :controller => 'surveys', :action => 'preview' },
+<%#= link_to l(:label_preview), 
+  { :url => { :controller => 'surveys', :action => 'preview', :project_id => @project },
     :method => 'post',
+    :remote => true,
     :update => 'preview',
-    :with => "Form.serialize('survey-form')",
-    :complete => "Element.scrollTo('preview')"
+    :with => "jQuery('survey-form').serialize()",
+    :complete => "jQuery('#preview').scrollTop(0)",
   }, :accesskey => accesskey(:preview) %> |
 <%= link_to l(:button_cancel), {:action => 'show', :id => @survey } %></p>
   <% end %>
