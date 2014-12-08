@@ -97,7 +97,7 @@ class SurveysController < ApplicationController
       @survey.remove_response_by_user(User.current)
       if params[:response]
         # remove answers for this user first
-        params[:response].each do |r|
+        [*params[:response]].each do |r|
           respond_to(r)
         end
       end
