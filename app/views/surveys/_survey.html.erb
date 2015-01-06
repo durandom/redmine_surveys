@@ -4,12 +4,12 @@
   disabled = !survey.is_valid?()
 %> 
 <div class="contextual">
-    <small>created by <%= survey.user.name %> on <%= survey.created_at.to_date %></small>
+    <small><%= l(:label_surveys_createdby) %> <%= survey.user.name %> on <%= survey.created_at.to_date %></small>
     <%= link_to_if_authorized(l(:button_edit), {:action => 'edit', :id => survey}, :class => 'icon icon-edit')  %>
-    <%= link_to_if_authorized(l(:button_delete), {:action => 'destroy', :id => survey}, :method => :post, :confirm => "Are you sure to delete this Survey?\nThis cannot be undone!", :class => 'icon icon-del') %>
-    <%= link_to_if(view_results, 'Results', '#', :class => 'icon icon-comment',  
+    <%= link_to_if_authorized(l(:button_delete), {:action => 'destroy', :id => survey}, :method => :post, :confirm => l(:label_surveys_undone), :class => 'icon icon-del') %>
+    <%= link_to_if(view_results, l(:label_surveys_iconresults), '#', :class => 'icon icon-comment',  
       :onclick => "jQuery('##{dom_id(survey, :results)}').toggle(); jQuery('##{dom_id(survey)}').toggle(); return false;") {} %>    
-    <%= link_to_if_authorized('Download', {:action => 'download', :id => survey},  :class => 'icon icon-file text-plain') %>    
+    <%= link_to_if_authorized(l(:label_surveys_icondownload), {:action => 'download', :id => survey},  :class => 'icon icon-file text-plain') %>    
 </div>
 
 <h2><%= survey.subject %></h2>
@@ -45,8 +45,8 @@
     </table>
     <p>
     <% unless disabled %>        
-       <%= submit_tag responded ? 'Save again' : 'Save'%>
-       <span style="color: red;"><%= responded ? ' You can change your answer. But after changes press the button again.' : ' Please save your answer by pressing "Save".' %></span>
+       <%= submit_tag responded ? l(:label_surveys_saveagain) : l(:label_surveys_save) %>
+       <span style="color: red;"><%= responded ? l(:label_surveys_changeanswer) : l(:label_surveys_savechanges) %></span>
     <% end %>
     </div>
         
