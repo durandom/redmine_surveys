@@ -14,16 +14,16 @@
   </td>
 </tr>
 <% end %>
-<tr><td></td><td>Total Responses <%= survey.responders.length %></td><td></td></tr>
+<tr><td></td><td><%= l(:label_surveys_totalresponses) %> <%= survey.responders.length %></td><td></td></tr>
 </table>
 
 <% if survey.response_comments.count > 0 %>
 <hr/>
-<a onclick='jQuery("#<%=dom_id(survey, :comments)%>").toggle(); return false;' href="#">Click to view comments.</a>
+<a onclick='jQuery("#<%=dom_id(survey, :comments)%>").toggle(); return false;' href="#"><%= l(:label_surveys_commentsclick) %></a>
 <div id=<%=dom_id(survey, :comments)%> style='display:none;'>
 <% survey.response_comments.each do |r| %>
   <div class=box>
-   Comment from <%= link_to_user(r.user) %>
+   <%= l(:label_surveys_commentsfrom) %> <%= link_to_user(r.user) %>
    <hr/> 
    <%= textilizable(r.content) %>
   </div>

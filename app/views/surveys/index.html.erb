@@ -1,14 +1,13 @@
 <div class="contextual">
-<%= link_to_if_authorized 'new survey',
+<%= link_to_if_authorized l(:label_survey_new),
                           {:controller => 'surveys', :action => 'new', :project_id => @project},
                            :class => 'icon icon-add' %>
 </div>
 
-<h2>Surveys</h2>
+<h2><%= l(:label_surveys) %></h2>
 
 <%= render :partial => 'survey', :collection => @surveys %>
 
 <p>
-Please make sure that you pressed the "Save" button after answering each question.<br />
-Thank you for completing the Survey Questionnaire.
+<%= l(:label_surveys_note) %>
 </p>

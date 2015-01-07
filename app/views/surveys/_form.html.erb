@@ -15,10 +15,10 @@ function addAnswerField() {
 <p><label><%= l(:field_subject) %></label><br />
 <%= f.text_field :subject, :size => 120 %><br />
 
-<label><%= f.check_box :allow_edit %> Allow Edit</label>
-<label><%= f.check_box :allow_comment %> Allow Comments</label> 
-<label><%= f.check_box :multiple_choice %> Multiple Choice</label> 
-<label><%= f.date_select :valid_until %> Valid until</label>
+<label><%= f.check_box :allow_edit %> <%= l(:label_surveys_allowedit) %></label>
+<label><%= f.check_box :allow_comment %> <%= l(:label_surveys_allowcomments) %></label> 
+<label><%= f.check_box :multiple_choice %> <%= l(:label_surveys_multiplechoice) %></label> 
+<label><%= f.date_select :valid_until %> <%= l(:label_surveys_validuntil) %></label>
 <br />
 </p>
 
@@ -28,12 +28,12 @@ function addAnswerField() {
 <!--[eoform:message]-->
 
 <span id="comment_hint">
-<em>Comment hint</em><br/>
+<em><%= l(:label_surveys_commenthint) %></em><br/>
 <p><%= f.text_area :comment_hint, :cols => 80, :rows => 4, :class => 'wiki-edit', :id => 'survey_comment_hint' %></p>
 </span>
 
 <span id="answers">
-<em>Answers</em><br/>
+<em><%= l(:label_surveys_answers) %></em><br/>
 <% f.object.answers.each do |a| %>
 <div>
      <%= text_area_tag "existing_answers[#{a.id}][content]", a.content, :cols => 120, :rows => 2, :id => nil, :style => 'width:90%' %>
@@ -45,8 +45,7 @@ function addAnswerField() {
 </div>
 <% end %>
 </span>
-<small><%= link_to "Add another answer", '#', :onclick => 'addAnswerField(); return false;' %>
+<small><%= link_to l(:label_surveys_addanswer), '#', :onclick => 'addAnswerField(); return false;' %>
 </small>
-
 
 </div>
